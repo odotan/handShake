@@ -1,14 +1,19 @@
 var handShakeApp = angular.module('handShakeApp', ['ngRoute']);
 
+handShakeApp.controller('mainController', ['$scope', function($scope) {
+	$scope.privateKey = '';
+    $scope.publicKey = '';
+}]);
+
 handShakeApp.config(function($routeProvider) {   
 	$routeProvider
 		.when('/', {
 			templateUrl: 'page1'
 		})
 		.when('/page1', {
-            templateUrl: 'page1'
-        })
-        .when('/page2', {
+			templateUrl: 'page1'
+		})
+		.when('/page2', {
 			templateUrl: 'page2'
 		})
 		.when('/page3', {

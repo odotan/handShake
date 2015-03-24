@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 <html ng-app="handShakeApp">
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/angular.js"></script>
 		<script type="text/javascript" src="js/angular-route.js"></script>
@@ -9,33 +11,42 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
 	<body>
-		<h1>Handshake</h1>
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li><a href="#/page1">Page 1</a></li>
-						<li><a href="#/page2">Page 2</a></li>
-						<li><a href="#/page3">Page 3</a></li>
-						<li><a href="#/page4">Page 4</a></li>
-						<li><a href="#/page5">Page 5</a></li>
-						<li><a href="#/page6">Page 6</a></li>
-						<li><a href="#/page7">Page 7</a></li>
-						<li><a href="#/page8">Page 8</a></li>
-						<li><a href="#/page9">Page 9</a></li>
-					</ul>
-				</div>
+		<div class="text-center">
+			<h1>Handshake</h1>
+			<div class="container">
+				<div ng-view>Loading...</div>
 			</div>
-		</nav>
-		<div class="container">
-			<div ng-view>Loading...</div>
 		</div>
 
 		<script type="text/ng-template" id="page1">
-			Page 1
+			<h3>Please select mobile device</h3>
+			<div class="form-group">
+				<a href="#/page3" class="btn btn-primary btn-lg">
+					<h2>Offline</h2>
+					This device is not connected to the internet. It will be holding cold-storage private key and signing a trasaction.
+				</a>
+			</div>
+			<div class="form-group">
+				<a href="#/page4" class="btn btn-primary btn-lg">
+					<h2>Online</h2>
+					This device is connected to the internet. It will be creating a transaction.
+				</a>
+			</div>
 		</script>
 		<script type="text/ng-template" id="page2">
-			Page 2
+			<h3>Offline Device</h3>
+			<div class="form-group">
+		        <label for="input_page_2">Please enter a private key or scan from QR</label>
+		        <div class="input-group">
+					<input type="text" class="form-control" id="input_page_2" placeholder="Private key">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-qrcode"></i></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<a href="#/page4" class="btn btn-primary form-control">
+					next
+				</a>
+			</div>
 		</script>
 		<script type="text/ng-template" id="page3">
 			Page 3

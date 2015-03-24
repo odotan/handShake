@@ -1,4 +1,4 @@
-body{
+body {
 	font-family: Arial;
 	font-size: 16px;
 	margin: 20px 50px;
@@ -6,35 +6,7 @@ body{
 	border: 1px solid #ddd;
 }
 
-h1{ font-size: 32px; }
-
-h2{ font-size: 28px; }
-
-ul.menu{
-	overflow: hidden;
-	padding: 0;
-	margin: 0;
-	background: #4D4D4D;
-}
-
-ul.menu li{
-	display: inline-block;
-}
-
-ul.menu li a{
-	display: block;
-	padding: 13px 20px;
-	text-decoration: none;
-	color: #fff;
-}
-
-ul.menu li a:hover{
-	background: #333;
-}
-
-.contentwrap{
-	text-align: center;
-	background: #EEE;
-	overflow: hidden;
-	padding: 100px 50px;
+.btn.btn-lg {
+	white-space: normal;
+	width: 100%;
 }

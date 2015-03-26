@@ -3,6 +3,10 @@ var handShakeApp = angular.module('handShakeApp', ['ngRoute']);
 handShakeApp.controller('mainController', ['$scope', function($scope) {
 	$scope.privateKey = '';
     $scope.publicKey = '';
+
+    $scope.scanQR = function (inputId) {
+		load($('#' + inputId));
+    };
 }]);
 
 handShakeApp.config(function($routeProvider) {   
@@ -37,4 +41,13 @@ handShakeApp.config(function($routeProvider) {
 		.when('/page9', {
 			templateUrl: 'page9'
 		});
+});
+
+$(document).ready(function() {
+	var qrcode_write = new QRCode("qrcode_write");
+
+	// $("#txt2read").on("keydown", function(e){
+	//     var elText = document.getElementById("txt2read");
+	//     qrcode_write.makeCode(elText.value);
+	// });
 });

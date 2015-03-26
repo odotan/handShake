@@ -6,7 +6,29 @@
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/angular.js"></script>
 		<script type="text/javascript" src="js/angular-route.js"></script>
+
+		<script type="text/javascript" src="js/qrcode.js"></script>
+		<script type="text/javascript" src="js/grid.js"></script>
+		<script type="text/javascript" src="js/version.js"></script>
+		<script type="text/javascript" src="js/detector.js"></script>
+		<script type="text/javascript" src="js/formatinf.js"></script>
+		<script type="text/javascript" src="js/errorlevel.js"></script>
+		<script type="text/javascript" src="js/bitmat.js"></script>
+		<script type="text/javascript" src="js/datablock.js"></script>
+		<script type="text/javascript" src="js/bmparser.js"></script>
+		<script type="text/javascript" src="js/datamask.js"></script>
+		<script type="text/javascript" src="js/rsdecoder.js"></script>
+		<script type="text/javascript" src="js/gf256poly.js"></script>
+		<script type="text/javascript" src="js/gf256.js"></script>
+		<script type="text/javascript" src="js/decoder.js"></script>
+		<script type="text/javascript" src="js/qrcode(1).js"></script>
+		<script type="text/javascript" src="js/findpat.js"></script>
+		<script type="text/javascript" src="js/alignpat.js"></script>
+		<script type="text/javascript" src="js/databr.js"></script>
+		<script type="text/javascript" src="js/webqr.js"></script>
+
 		<script type="text/javascript" src="js/script.js"></script>
+
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
@@ -15,6 +37,12 @@
 			<h1>Handshake</h1>
 			<div class="container">
 				<div ng-view>Loading...</div>
+				<div id="qrcode_write" class="qr">
+					<canvas width="256" height="256"></canvas>
+					<img alt="Scan me!" style="display: none;">
+				</div>
+				<div id="cam"></div>
+				<canvas id="qr-canvas"></canvas>
 			</div>
 		</div>
 
@@ -34,12 +62,15 @@
 			</div>
 		</script>
 		<script type="text/ng-template" id="page2">
+			Page 2
+		</script>
+		<script type="text/ng-template" id="page3">
 			<h3>Offline Device</h3>
 			<div class="form-group">
 				<label for="input_page_2">Enter a private key or scan from QR</label>
 				<div class="input-group">
-					<input type="text" ng-model="privateKey" class="form-control" id="input_page_2" placeholder="Private key">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-qrcode"></i></span>
+					<input type="text" ng-model="privateKey" class="form-control qr" id="input_page_2" placeholder="Private key">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-qrcode" ng-click="scanQR('input_page_2')"></i></span>
 				</div>
 			</div>
 			<div class="form-group">
@@ -48,16 +79,13 @@
 				</a>
 			</div>
 		</script>
-		<script type="text/ng-template" id="page3">
-			Page 3
-		</script>
 		<script type="text/ng-template" id="page4">
 			<h3>Online Device</h3>
 			<div class="form-group">
 				<label for="input_page_4">Enter your cold-store address or scan from QR</label>
 				<div class="input-group">
-					<input type="text" class="form-control" id="input_page_4" placeholder="Cold-store address">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-qrcode"></i></span>
+					<input type="text" class="form-control qr" id="input_page_4" placeholder="Cold-store address">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-qrcode" ng-click="scanQR('input_page_4')"></i></span>
 				</div>
 			</div>
 			<div class="form-group">
@@ -71,8 +99,8 @@
 			<div class="form-group">
 				<label for="input_page_5_1">1. Enter the address to send bitcoins to or scan from QR</label>
 				<div class="input-group">
-					<input type="text" class="form-control" id="input_page_5_1" placeholder="Bitcoin address">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-qrcode"></i></span>
+					<input type="text" class="form-control qr" id="input_page_5_1" placeholder="Bitcoin address">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-qrcode" ng-click="scanQR('input_page_5_1')"></i></span>
 				</div>
 			</div>
 			<div class="form-group">

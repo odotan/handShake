@@ -27,13 +27,15 @@
 		<script type="text/javascript" src="js/databr.js"></script>
 		<script type="text/javascript" src="js/webqr.js"></script>
 
+		<script type="text/javascript" src="js/bitcoinjs-min.js"></script>		
+
 		<script type="text/javascript" src="js/script.js"></script>
 
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
 	<body>
-		<div class="text-center" ng-controller="mainController">
+		<div class="text-center">
 			<h1>Handshake</h1>
 			<div class="container">
 				<div ng-view>Loading...</div>
@@ -49,7 +51,7 @@
 		<script type="text/ng-template" id="page1">
 			<h3>Please select mobile device</h3>
 			<div class="form-group">
-				<a href="#/page3" class="btn btn-primary btn-lg">
+				<a href="#/page2" class="btn btn-primary btn-lg">
 					<h2>Offline</h2>
 					This device is not connected to the internet. It will be holding cold-storage private key and signing a trasaction.
 				</a>
@@ -62,22 +64,24 @@
 			</div>
 		</script>
 		<script type="text/ng-template" id="page2">
-			Page 2
-		</script>
-		<script type="text/ng-template" id="page3">
 			<h3>Offline Device</h3>
 			<div class="form-group">
 				<label for="input_page_2">Enter a private key or scan from QR</label>
 				<div class="input-group">
-					<input type="text" ng-model="privateKey" class="form-control qr" id="input_page_2" placeholder="Private key">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-qrcode" ng-click="scanQR('input_page_2')"></i></span>
+					<input type="text" ng-model="root.privateKey" class="form-control qr" id="input_page_2" placeholder="Private key">
+					<span class="input-group-addon" ng-click="scanQR('input_page_2')"><i class="glyphicon glyphicon-qrcode"></i></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<a href="#/page3" class="btn btn-primary form-control">
+				<a href="#/page3" class="btn btn-primary form-control" ng-click="root.createPublicKey()">
 					next
 				</a>
 			</div>
+		</script>
+		<script type="text/ng-template" id="page3">
+			<h3>Offline Device</h3>
+			Your bitcoin address is: {{ root.publicKey }}
+			<h4>Please scan QR with the online device</h4>
 		</script>
 		<script type="text/ng-template" id="page4">
 			<h3>Online Device</h3>

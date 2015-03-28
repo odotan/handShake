@@ -103,19 +103,19 @@
 			<div class="form-group">
 				<label for="input_page_5_1">1. Enter the address to send bitcoins to or scan from QR</label>
 				<div class="input-group">
-					<input type="text" class="form-control qr" id="input_page_5_1" placeholder="Bitcoin address">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-qrcode" ng-click="scanQR('input_page_5_1')"></i></span>
+					<input type="text" ng-model="root.publicKey" class="form-control qr" id="input_page_5_1" placeholder="Bitcoin address">
+					<span class="input-group-addon" ng-click="scanQR('input_page_5_1')"><i class="glyphicon glyphicon-qrcode"></i></span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="input_page_5_2">2. Enter the amount of bitcoins to send</label>
 				<div class="input-group">
-					<input type="text" class="form-control" id="input_page_5_2" placeholder="Amount">
+					<input type="text" ng-model="root.amount" class="form-control" id="input_page_5_2" placeholder="Amount">
 					<span class="input-group-addon">฿</span>
 				</div>
 			</div>
 			<div class="form-group">
-				<a href="#/page5" class="btn btn-primary form-control">
+				<a href="#/page5" class="btn btn-primary form-control" ng-click="insertTargetAddressAndAmount()">
 					next
 				</a>
 			</div>

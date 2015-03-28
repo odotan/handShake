@@ -7,6 +7,7 @@ handShakeApp.run(function($rootScope){
 	$rootScope.privateKey = '';
 	$rootScope.publicKey = '';
     $rootScope.publicColdStorageKey = '';
+    $rootScope.amount = '';
 
 	$rootScope.createPublicKey = function() {
         var privateKey = $('#input_page_2').val();
@@ -18,7 +19,12 @@ handShakeApp.run(function($rootScope){
 	};
 
     $rootScope.insertPublicColdStorageKey = function() {
-        var publicColdStorageKey = $('#input_page_4').val();
+        $rootScope.publicColdStorageKey = $('#input_page_4').val();
+    };
+
+    $rootScope.insertTargetAddressAndAmount = function() {
+        $rootScope.publicKey = $('#input_page_5_1').val();
+        $rootScope.amount = $('#input_page_5_2').val();
     };
 });
 

@@ -31,8 +31,9 @@ body {
   height: 255px;
   background-color: #ccc;
   text-align: center;
-  display: inline-block;
   margin-top: 20px;
+  display: inline-block;
+  display: none;
 }
 /* line 32, ../sass/screen.scss */
 #qrs #cam video {

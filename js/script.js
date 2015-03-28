@@ -24,6 +24,7 @@ handShakeApp.run(function($rootScope){
 
 handShakeApp.controller('mainController', function($scope, $rootScope) {
 	$scope.scanQR = function (inputId) {
+		$("#qrs #cam").css("display","inline-block");
 		load($('#' + inputId));
 	};
 });

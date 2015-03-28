@@ -1,5 +1,4 @@
-bower_components/
-bower_components/bootstrap/dist/css/*
 !bower_components/bootstrap/dist/css/bootstrap.min.css
+bower_components/
 
 node_modules/

@@ -88,12 +88,12 @@
 			<div class="form-group">
 				<label for="input_page_4">Enter your cold-store address or scan from QR</label>
 				<div class="input-group">
-					<input type="text" class="form-control qr" id="input_page_4" placeholder="Cold-store address">
+					<input type="text" ng-model="root.publicColdStorageKey" class="form-control qr" id="input_page_4" placeholder="Cold-store address">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-qrcode" ng-click="scanQR('input_page_4')"></i></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<a href="#/page5" class="btn btn-primary form-control">
+				<a href="#/page5" class="btn btn-primary form-control" ng-click="insertPublicColdStorageKey()">
 					next
 				</a>
 			</div>

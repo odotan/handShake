@@ -6,6 +6,8 @@ handShakeApp.run(function($rootScope){
 	$rootScope.root = $rootScope; 
 	$rootScope.privateKey = '';
 	$rootScope.publicKey = '';
+    $rootScope.publicColdStorageKey = '';
+
 	$rootScope.createPublicKey = function() {
         var privateKey = $('#input_page_2').val();
 		if (privateKey) {
@@ -14,6 +16,10 @@ handShakeApp.run(function($rootScope){
 			qrcode_write.makeCode($rootScope.root.publicKey);
 		}
 	};
+
+    $rootScope.insertPublicColdStorageKey = function() {
+        var publicColdStorageKey = $('#input_page_4').val();
+    };
 });
 
 handShakeApp.controller('mainController', function($scope, $rootScope) {

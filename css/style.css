@@ -10,3 +10,45 @@ body {
 	white-space: normal;
 	width: 100%;
 }
+
+/* line 15, ../sass/screen.scss */
+#qrs {
+  margin: 0 40px;
+  text-align: center;
+}
+/* line 19, ../sass/screen.scss */
+#qrs label {
+  display: inline-block;
+  margin: 20px 0 10px 0;
+}
+/* line 22, ../sass/screen.scss */
+#qrs label:first-child {
+  margin-top: 0;
+}
+/* line 26, ../sass/screen.scss */
+#qrs #cam {
+  width: 255px;
+  height: 255px;
+  background-color: #ccc;
+  text-align: center;
+  display: inline-block;
+  margin-top: 20px;
+}
+/* line 32, ../sass/screen.scss */
+#qrs #cam video {
+  width: 100%;
+  height: 100%;
+}
+/* line 37, ../sass/screen.scss */
+#qrs #qr-canvas {
+  display: none;
+}
+/* line 41, ../sass/screen.scss */
+#qrs #qrcode_write img {
+  text-align: center;
+  display: inline-block !important;
+}
+/* line 45, ../sass/screen.scss */
+#qrs #qrcode_write img[style="display: none;"] {
+  display: none !important;
+}

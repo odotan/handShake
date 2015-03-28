@@ -13,7 +13,6 @@ handShakeApp.run(function($rootScope){
 		if (privateKey) {
             $rootScope.root.privateKey = privateKey;
 			$rootScope.root.publicKey = (new Bitcoin.ECKey($rootScope.root.privateKey)).getBitcoinAddress().toString();
-			qrcode_write.makeCode($rootScope.root.publicKey);
 		}
 	};
 
@@ -23,10 +22,18 @@ handShakeApp.run(function($rootScope){
 });
 
 handShakeApp.controller('mainController', function($scope, $rootScope) {
+	
+});
+handShakeApp.controller('pageWithScanController', function($scope, $rootScope) {
 	$scope.scanQR = function (inputId) {
 		$("#qrs #cam").css("display","inline-block");
 		load($('#' + inputId));
 	};
+	
+});
+handShakeApp.controller('page3Controller', function($scope, $rootScope) {
+	qrcode_write = new QRCode("qrcode_write");
+	qrcode_write.makeCode($rootScope.root.publicKey);
 });
 
 handShakeApp.config(function($routeProvider) {   
@@ -41,19 +48,19 @@ handShakeApp.config(function($routeProvider) {
 		})
 		.when('/page2', {
 			templateUrl: 'page2',
-			controller: 'mainController'
+			controller: 'pageWithScanController'
 		})
 		.when('/page3', {
 			templateUrl: 'page3',
-			controller: 'mainController'
+			controller: 'page3Controller'
 		})
 		.when('/page4', {
 			templateUrl: 'page4',
-			controller: 'mainController'
+			controller: 'pageWithScanController'
 		})
 		.when('/page5', {
 			templateUrl: 'page5',
-			controller: 'mainController'
+			controller: 'pageWithScanController'
 		})
 		.when('/page6', {
 			templateUrl: 'page6',
@@ -74,10 +81,5 @@ handShakeApp.config(function($routeProvider) {
 });
 
 $(document).ready(function() {
-	qrcode_write = new QRCode("qrcode_write");
 
-	// $("#txt2read").on("keydown", function(e){
-	//	 var elText = document.getElementById("txt2read");
-	//	 qrcode_write.makeCode(elText.value);
-	// });
 });

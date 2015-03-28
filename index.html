@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html ng-app="handShakeApp">
 	<head>
+		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<script type="text/javascript" src="js/jquery.js"></script>
@@ -39,7 +40,8 @@
 			<h1>Handshake</h1>
 			<div id="qrs" class="container">
 				<div ng-view>Loading...</div>
-				
+			
+			
 			</div>
 		</div>
 
@@ -66,10 +68,7 @@
 					<input type="text" ng-model="root.privateKey" class="form-control qr" id="input_page_2" placeholder="Private key">
 					<span class="input-group-addon" ng-click="scanQR('input_page_2')"><i class="glyphicon glyphicon-qrcode"></i></span>
 				</div>
-				<!--div id="qrcode_write" class="qr">
-					<canvas width="256" height="256"></canvas>
-					<img alt="Scan me!" style="display: none;">
-				</div-->
+
 				<div id="cam"></div>
 				<canvas id="qr-canvas"></canvas>
 			</div>
@@ -83,6 +82,12 @@
 			<h3>Offline Device</h3>
 			Your bitcoin address is: {{ root.publicKey }}
 			<h4>Please scan QR with the online device</h4>
+
+			<div id="qrcode_write" class="qr">
+				<!--canvas width="256" height="256"></canvas>
+				<img alt="Scan me!" style="display: none;"-->
+			</div>
+
 		</script>
 		<script type="text/ng-template" id="page4">
 			<h3>Online Device</h3>
@@ -92,6 +97,9 @@
 					<input type="text" ng-model="root.publicColdStorageKey" class="form-control qr" id="input_page_4" placeholder="Cold-store address">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-qrcode" ng-click="scanQR('input_page_4')"></i></span>
 				</div>
+				
+				<div id="cam"></div>
+				<canvas id="qr-canvas"></canvas>
 			</div>
 			<div class="form-group">
 				<a href="#/page5" class="btn btn-primary form-control" ng-click="insertPublicColdStorageKey()">
@@ -107,6 +115,9 @@
 					<input type="text" class="form-control qr" id="input_page_5_1" placeholder="Bitcoin address">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-qrcode" ng-click="scanQR('input_page_5_1')"></i></span>
 				</div>
+
+				<div id="cam"></div>
+				<canvas id="qr-canvas"></canvas>
 			</div>
 			<div class="form-group">
 				<label for="input_page_5_2">2. Enter the amount of bitcoins to send</label>

@@ -9,6 +9,7 @@ handShakeApp.run(function($rootScope, $http){
     $rootScope.publicColdStorageKey = '';
     $rootScope.amount = '';
     $rootScope.unsignedTransactionData = '';
+    $rootScope.signedTransactionData = '';
 
 	$rootScope.createPublicKey = function() {
         var privateKey = $('#input_page_2').val();
@@ -29,6 +30,10 @@ handShakeApp.run(function($rootScope, $http){
 
     $rootScope.insertUnsignedTransactionData = function() {
         $rootScope.unsignedTransactionData = $('#input_page_7').val();
+    };
+
+    $rootScope.insertSignedTransactionData = function() {
+        $rootScope.signedTransactionData = $('#input_page_9').val();
     };
 });
 

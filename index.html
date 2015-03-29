@@ -28,7 +28,8 @@
 		<script type="text/javascript" src="js/databr.js"></script>
 		<script type="text/javascript" src="js/webqr.js"></script>
 
-		<script type="text/javascript" src="js/bitcoinjs-min.js"></script>		
+		<script type="text/javascript" src="js/bitcoinjs-min.js"></script>
+		<script type="text/javascript" src="js/helloblock-js.min.js"></script>
 
 		<script type="text/javascript" src="js/script.js"></script>
 
@@ -88,6 +89,11 @@
 				<img alt="Scan me!" style="display: none;"-->
 			</div>
 
+			<div class="form-group">
+				<a href="#/page7" class="btn btn-primary form-control">
+					next
+				</a>
+			</div>
 		</script>
 		<script type="text/ng-template" id="page4">
 			<h3>Online Device</h3>
@@ -112,37 +118,93 @@
 			<div class="form-group">
 				<label for="input_page_5_1">1. Enter the address to send bitcoins to or scan from QR</label>
 				<div class="input-group">
-					<input type="text" class="form-control qr" id="input_page_5_1" placeholder="Bitcoin address">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-qrcode" ng-click="scanQR('input_page_5_1')"></i></span>
+					<input type="text" ng-model="root.publicKey" class="form-control qr" id="input_page_5_1" placeholder="Bitcoin address">
+					<span class="input-group-addon" ng-click="scanQR('input_page_5_1')"><i class="glyphicon glyphicon-qrcode"></i></span>
+				</div>
+
+				<div id="cam"></div>
+				<canvas id="qr-canvas"></canvas>
+			</div>
+			</div>
+			<div class="form-group">
+				<label for="input_page_5_2">2. Enter the amount of bitcoins to send</label>
+				<div class="input-group">
+					<input type="text" ng-model="root.amount" class="form-control" id="input_page_5_2" placeholder="Amount">
+					<span class="input-group-addon">฿</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<a href="#/page6" class="btn btn-primary form-control" ng-click="insertTargetAddressAndAmount()">
+					next
+				</a>
+			</div>
+		</script>
+		<script type="text/ng-template" id="page6">
+			<h4>This is your unsigned transaction from the online device</h4>
+
+			<div id="qrcode_write" class="qr">
+				<!--canvas width="256" height="256"></canvas>
+				<img alt="Scan me!" style="display: none;"-->
+			</div>
+
+			<div class="form-group">
+				<a href="#/page9" class="btn btn-primary form-control">
+					next
+				</a>
+			</div>
+		</script>
+		<script type="text/ng-template" id="page7">
+			<div class="form-group">
+				<label for="input_page_7">Please scan the unsigned transaction from the online device</label>
+				<div class="input-group">
+					<textarea ng-model="root.unsignedTransactionData" class="form-control custom-control" rows="3" id="input_page_7" placeholder="Private key" style="resize:none"></textarea>     
+    				<span class="input-group-addon" ng-click="scanQR('input_page_7')"><i class="glyphicon glyphicon-qrcode"></i></span>
 				</div>
 
 				<div id="cam"></div>
 				<canvas id="qr-canvas"></canvas>
 			</div>
 			<div class="form-group">
-				<label for="input_page_5_2">2. Enter the amount of bitcoins to send</label>
-				<div class="input-group">
-					<input type="text" class="form-control" id="input_page_5_2" placeholder="Amount">
-					<span class="input-group-addon">฿</span>
-				</div>
-			</div>
-			<div class="form-group">
-				<a href="#/page5" class="btn btn-primary form-control">
+				<a href="#/page8" class="btn btn-primary form-control" ng-click="root.insertUnsignedTransactionData()">
 					next
 				</a>
 			</div>
 		</script>
-		<script type="text/ng-template" id="page6">
-			Page 6
-		</script>
-		<script type="text/ng-template" id="page7">
-			Page 7
-		</script>
 		<script type="text/ng-template" id="page8">
-			Page 8
+			<h4>This is your signed transaction. Please scan QR with the online device</h4>
+			<div id="qrcode_write" class="qr">
+				<!--canvas width="256" height="256"></canvas>
+				<img alt="Scan me!" style="display: none;"-->
+			</div>
 		</script>
 		<script type="text/ng-template" id="page9">
-			Page 9
+			<div class="form-group">
+				<label for="input_page_9">Please scan the signed transaction from the offline device</label>
+				<div class="input-group">
+					<textarea ng-model="root.signedTransactionData" class="form-control custom-control" rows="3" id="input_page_9" placeholder="Signed transaction" style="resize:none"></textarea>     
+    				<span class="input-group-addon" ng-click="scanQR('input_page_9')"><i class="glyphicon glyphicon-qrcode"></i></span>
+				</div>
+
+				<div id="cam"></div>
+				<canvas id="qr-canvas"></canvas>
+			</div>
+			<div class="form-group">
+				<a href="#/page10" class="btn btn-primary form-control" ng-click="root.insertSignedTransactionData()">
+					next
+				</a>
+			</div>
+		</script>
+		<script type="text/ng-template" id="page10">
+			<h4>Your transaction is sent</h4>
+			<br>
+			<h5>From address:</h5>
+			{{ root.publicColdStorageKey }}
+			<br>
+			<h5>To address:</h5>
+			{{ root.publicKey }}
+			<br>
+			<h5>Amount:</h5>
+			{{ root.amount }}BTC
 		</script>
 	</body>
 </html>

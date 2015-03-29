@@ -30,22 +30,51 @@ handShakeApp.run(function($rootScope, $http){
 
         $http.get('https://blockchain.info/unspent?active=' + $rootScope.publicColdStorageKey + '&cors=true')
             .success(function(data, status, headers, config) {
-                var tx = new Bitcoin.Transaction();
+                var txData = {
+                    inputs: [],
+                    outputs: []
+                };
 
                 var totalUnspentsValue = 0;
                 for (var i = 0 ; i < data.unspent_outputs.length ; i++) {
-                    tx.addInput(data.unspent_outputs[i].tx_hash, data.unspent_outputs[i].tx_index);
+                    txData.inputs.push({
+                        tx_hash: data.unspent_outputs[i].tx_hash,
+                        tx_index: data.unspent_outputs[i].tx_index
+                    })
                     totalUnspentsValue += data.unspent_outputs[i].value;
                 }
-                tx.addOutput({ hash: $rootScope.publicKey }, txTargetValue);
+
+                txData.outputs.push({
+                    hash: $rootScope.publicKey,
+                    value: txTargetValue
+                });
 
                 var txChangeValue = totalUnspentsValue - txTargetValue - txFee;
-                tx.addOutput({ hash: $rootScope.publicColdStorageKey }, txChangeValue);
-                
-                // Eli says: from this point I'm a bit clueless... how exactliy can we ust get the transaction unsigned hash???
+                txData.outputs.push({
+                    hash: $rootScope.publicColdStorageKey,
+                    value: txChangeValue
+                });
 
-                var transactionUnsignedHash = 'blablabla';
-                qrcode_write.makeCode(transactionUnsignedHash);
+                qrcode_write.makeCode(JSON.stringify(txData));
+
+                // Eli: the following code insiprated by https://helloblock.io/docs/tutorials
+
+                // var tx = new Bitcoin.Transaction();
+
+                // var totalUnspentsValue = 0;
+                // for (var i = 0 ; i < data.unspent_outputs.length ; i++) {
+                //     tx.addInput(data.unspent_outputs[i].tx_hash, data.unspent_outputs[i].tx_index);
+                //     totalUnspentsValue += data.unspent_outputs[i].value;
+                // }
+                // tx.addOutput({ hash: $rootScope.publicKey }, txTargetValue);
+
+                // var txChangeValue = totalUnspentsValue - txTargetValue - txFee;
+                // tx.addOutput({ hash: $rootScope.publicColdStorageKey }, txChangeValue);
+                
+                // // Eli says: from this point I'm a bit clueless... how exactliy can we ust get the transaction unsigned hash???
+
+                // var transactionUnsignedHash = 'blablabla';
+                // qrcode_write.makeCode(transactionUnsignedHash);
             });
     };
 });

@@ -8,6 +8,7 @@ handShakeApp.run(function($rootScope, $http){
 	$rootScope.publicKey = '';
     $rootScope.publicColdStorageKey = '';
     $rootScope.amount = '';
+    $rootScope.unsignedTransactionData = '';
 
 	$rootScope.createPublicKey = function() {
         var privateKey = $('#input_page_2').val();
@@ -24,8 +25,25 @@ handShakeApp.run(function($rootScope, $http){
     $rootScope.insertTargetAddressAndAmount = function() {
         $rootScope.publicKey = $('#input_page_5_1').val();
         $rootScope.amount = $('#input_page_5_2').val();
+    };
+});
 
-        var txFee = 10000;
+handShakeApp.controller('mainController', function($scope, $rootScope) {
+	
+});
+handShakeApp.controller('pageWithScanController', function($scope, $rootScope) {
+	$scope.scanQR = function (inputId) {
+		$("#qrs #cam").css("display","inline-block");
+		load($('#' + inputId));
+	};
+	
+});
+handShakeApp.controller('page3Controller', function($scope, $rootScope) {
+	qrcode_write = new QRCode("qrcode_write");
+	qrcode_write.makeCode($rootScope.root.publicKey);
+});
+handShakeApp.controller('page6Controller', function($scope, $rootScope, $http) {
+		var txFee = 10000;
         var txTargetValue = parseFloat($rootScope.amount) * 100000000;
 
         $http.get('https://blockchain.info/unspent?active=' + $rootScope.publicColdStorageKey + '&cors=true')
@@ -55,43 +73,9 @@ handShakeApp.run(function($rootScope, $http){
                     value: txChangeValue
                 });
 
+                qrcode_write = new QRCode("qrcode_write");
                 qrcode_write.makeCode(JSON.stringify(txData));
-
-                // Eli: the following code insiprated by https://helloblock.io/docs/tutorials
-
-                // var tx = new Bitcoin.Transaction();
-
-                // var totalUnspentsValue = 0;
-                // for (var i = 0 ; i < data.unspent_outputs.length ; i++) {
-                //     tx.addInput(data.unspent_outputs[i].tx_hash, data.unspent_outputs[i].tx_index);
-                //     totalUnspentsValue += data.unspent_outputs[i].value;
-                // }
-                // tx.addOutput({ hash: $rootScope.publicKey }, txTargetValue);
-
-                // var txChangeValue = totalUnspentsValue - txTargetValue - txFee;
-                // tx.addOutput({ hash: $rootScope.publicColdStorageKey }, txChangeValue);
-                
-                // // Eli says: from this point I'm a bit clueless... how exactliy can we ust get the transaction unsigned hash???
-
-                // var transactionUnsignedHash = 'blablabla';
-                // qrcode_write.makeCode(transactionUnsignedHash);
             });
-    };
-});
-
-handShakeApp.controller('mainController', function($scope, $rootScope) {
-	
-});
-handShakeApp.controller('pageWithScanController', function($scope, $rootScope) {
-	$scope.scanQR = function (inputId) {
-		$("#qrs #cam").css("display","inline-block");
-		load($('#' + inputId));
-	};
-	
-});
-handShakeApp.controller('page3Controller', function($scope, $rootScope) {
-	qrcode_write = new QRCode("qrcode_write");
-	qrcode_write.makeCode($rootScope.root.publicKey);
 });
 
 handShakeApp.config(function($routeProvider) {   
@@ -122,11 +106,11 @@ handShakeApp.config(function($routeProvider) {
 		})
 		.when('/page6', {
 			templateUrl: 'page6',
-			controller: 'mainController'
+			controller: 'page6Controller'
 		})
 		.when('/page7', {
 			templateUrl: 'page7',
-			controller: 'mainController'
+			controller: 'pageWithScanController'
 		})
 		.when('/page8', {
 			templateUrl: 'page8',
@@ -134,6 +118,10 @@ handShakeApp.config(function($routeProvider) {
 		})
 		.when('/page9', {
 			templateUrl: 'page9',
+			controller: 'pageWithScanController'
+		})
+		.when('/page10', {
+			templateUrl: 'page10',
 			controller: 'mainController'
 		});
 });

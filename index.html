@@ -127,16 +127,34 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<a href="#/page5" class="btn btn-primary form-control" ng-click="insertTargetAddressAndAmount()">
+				<a href="#/page6" class="btn btn-primary form-control" ng-click="insertTargetAddressAndAmount()">
 					next
 				</a>
 			</div>
 		</script>
 		<script type="text/ng-template" id="page6">
-			Page 6
+			<h4>This is your unsigned transaction from the online device</h4>
+			<div id="qrcode_write" class="qr">
+				<!--canvas width="256" height="256"></canvas>
+				<img alt="Scan me!" style="display: none;"-->
+			</div>
 		</script>
 		<script type="text/ng-template" id="page7">
-			Page 7
+			<div class="form-group">
+				<label for="input_page_7">Please scan the unsigned transaction from the online device</label>
+				<div class="input-group">
+					<textarea ng-model="root.unsignedTransactionData" class="form-control custom-control" rows="3" id="input_page_7" placeholder="Private key" style="resize:none"></textarea>     
+    				<span class="input-group-addon" ng-click="scanQR('input_page_7')"><i class="glyphicon glyphicon-qrcode"></i></span>
+				</div>
+
+				<div id="cam"></div>
+				<canvas id="qr-canvas"></canvas>
+			</div>
+			<div class="form-group">
+				<a href="#/page3" class="btn btn-primary form-control" ng-click="root.createPublicKey()">
+					next
+				</a>
+			</div>
 		</script>
 		<script type="text/ng-template" id="page8">
 			Page 8

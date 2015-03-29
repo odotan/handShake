@@ -53,3 +53,7 @@ body {
 #qrs #qrcode_write img[style="display: none;"] {
   display: none !important;
 }
+
+.qr {
+	margin: 20px;
+}

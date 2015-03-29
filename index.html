@@ -88,6 +88,11 @@
 				<img alt="Scan me!" style="display: none;"-->
 			</div>
 
+			<div class="form-group">
+				<a href="#/page7" class="btn btn-primary form-control">
+					next
+				</a>
+			</div>
 		</script>
 		<script type="text/ng-template" id="page4">
 			<h3>Online Device</h3>
@@ -118,6 +123,7 @@
 
 				<div id="cam"></div>
 				<canvas id="qr-canvas"></canvas>
+			</div>
 			</div>
 			<div class="form-group">
 				<label for="input_page_5_2">2. Enter the amount of bitcoins to send</label>
@@ -151,13 +157,17 @@
 				<canvas id="qr-canvas"></canvas>
 			</div>
 			<div class="form-group">
-				<a href="#/page3" class="btn btn-primary form-control" ng-click="root.createPublicKey()">
+				<a href="#/page8" class="btn btn-primary form-control" ng-click="root.insertUnsignedTransactionData()">
 					next
 				</a>
 			</div>
 		</script>
 		<script type="text/ng-template" id="page8">
-			Page 8
+			<h4>This is your signed transaction. Please scan QR with the online device</h4>
+			<div id="qrcode_write" class="qr">
+				<!--canvas width="256" height="256"></canvas>
+				<img alt="Scan me!" style="display: none;"-->
+			</div>
 		</script>
 		<script type="text/ng-template" id="page9">
 			Page 9

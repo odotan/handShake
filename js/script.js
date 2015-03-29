@@ -14,7 +14,7 @@ handShakeApp.run(function($rootScope, $http){
         var privateKey = $('#input_page_2').val();
 		if (privateKey) {
             $rootScope.root.privateKey = privateKey;
-			$rootScope.root.publicKey = (new Bitcoin.ECKey($rootScope.root.privateKey)).getBitcoinAddress().toString();
+			$rootScope.root.publicKey = (new bitcoin.ECKey($rootScope.root.privateKey)).getAddress().toString();
 		}
 	};
 
@@ -25,6 +25,10 @@ handShakeApp.run(function($rootScope, $http){
     $rootScope.insertTargetAddressAndAmount = function() {
         $rootScope.publicKey = $('#input_page_5_1').val();
         $rootScope.amount = $('#input_page_5_2').val();
+    };
+
+    $rootScope.insertUnsignedTransactionData = function() {
+        $rootScope.unsignedTransactionData = $('#input_page_7').val();
     };
 });
 
@@ -77,6 +81,25 @@ handShakeApp.controller('page6Controller', function($scope, $rootScope, $http) {
                 qrcode_write.makeCode(JSON.stringify(txData));
             });
 });
+handShakeApp.controller('page8Controller', function($scope, $rootScope, $http) {
+	var data = JSON.parse($rootScope.unsignedTransactionData),
+		ecKey = new bitcoin.ECKey($rootScope.root.privateKey);
+
+	var tx = new bitcoin.Transaction();
+    for (var i = 0 ; i < data.inputs.length ; i++) {
+        tx.addInput(data.inputs[i].tx_hash, data.inputs[i].tx_index);
+    }
+    for (var i = 0 ; i < data.outputs.length ; i++) {
+        tx.addOutput(data.outputs[i].hash, data.outputs[i].value);
+    }
+
+    tx.ins.forEach(function(input, index) {
+    	tx.sign(index, ecKey);
+	});
+
+	qrcode_write = new QRCode("qrcode_write");
+	qrcode_write.makeCode(tx.serializeHex());
+});
 
 handShakeApp.config(function($routeProvider) {   
 	$routeProvider
@@ -114,7 +137,7 @@ handShakeApp.config(function($routeProvider) {
 		})
 		.when('/page8', {
 			templateUrl: 'page8',
-			controller: 'mainController'
+			controller: 'page8Controller'
 		})
 		.when('/page9', {
 			templateUrl: 'page9',

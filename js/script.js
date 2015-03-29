@@ -110,7 +110,6 @@ handShakeApp.controller('page8Controller', function($scope, $rootScope, $http) {
 
 handShakeApp.controller('page10Controller', function($scope, $rootScope, $http) {
 	helloblock.transactions.propagate($rootScope.signedTransactionData, function(err, res, tx) {
-    	debugger;
 	});
 });
 

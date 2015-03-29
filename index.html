@@ -141,9 +141,16 @@
 		</script>
 		<script type="text/ng-template" id="page6">
 			<h4>This is your unsigned transaction from the online device</h4>
+
 			<div id="qrcode_write" class="qr">
 				<!--canvas width="256" height="256"></canvas>
 				<img alt="Scan me!" style="display: none;"-->
+			</div>
+
+			<div class="form-group">
+				<a href="#/page9" class="btn btn-primary form-control">
+					next
+				</a>
 			</div>
 		</script>
 		<script type="text/ng-template" id="page7">
@@ -172,9 +179,9 @@
 		</script>
 		<script type="text/ng-template" id="page9">
 			<div class="form-group">
-				<label for="input_page_8">Please scan the signed transaction from the offline device</label>
+				<label for="input_page_9">Please scan the signed transaction from the offline device</label>
 				<div class="input-group">
-					<textarea ng-model="root.signedTransactionData" class="form-control custom-control" rows="3" id="input_page_9" placeholder="Private key" style="resize:none"></textarea>     
+					<textarea ng-model="root.signedTransactionData" class="form-control custom-control" rows="3" id="input_page_9" placeholder="Signed transaction" style="resize:none"></textarea>     
     				<span class="input-group-addon" ng-click="scanQR('input_page_9')"><i class="glyphicon glyphicon-qrcode"></i></span>
 				</div>
 
@@ -188,7 +195,16 @@
 			</div>
 		</script>
 		<script type="text/ng-template" id="page10">
-			Page 10
+			<h4>Your transaction is sent</h4>
+			<br>
+			<h5>From address:</h5>
+			{{ root.publicColdStorageKey }}
+			<br>
+			<h5>To address:</h5>
+			{{ root.publicKey }}
+			<br>
+			<h5>Amount:</h5>
+			{{ root.amount }}BTC
 		</script>
 	</body>
 </html>

@@ -10,6 +10,7 @@ var webkit = false;
 var moz = false;
 var v = null;
 var inputElement = null;
+var localStream = null;
 
 var imghtml = '<div id="qrfile"><canvas id="out-canvas" width="320" height="240"></canvas>' +
     '<div id="imghelp">drag and drop a QRCode here' +
@@ -92,6 +93,10 @@ function captureToCanvas() {
 
 function read(str) {
     inputElement.val(str);
+
+    if (localStream && localStream.stop) {
+        localStream.stop();
+    }
 }
 
 function isCanvasSupported() {
@@ -100,6 +105,8 @@ function isCanvasSupported() {
 }
 
 function success(stream) {
+    localStream = stream;
+
     if (webkit)
         v.src = window.webkitURL.createObjectURL(stream);
     else

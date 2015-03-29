@@ -534,8 +534,8 @@ var QRCode;
 	 */
 	QRCode = function (el, vOption) {
 		this._htOption = {
-			width : 512, 
-			height : 512,
+			width : 384, 
+			height : 384,
 			typeNumber : 4,
 			colorDark : "#000000",
 			colorLight : "#ffffff",

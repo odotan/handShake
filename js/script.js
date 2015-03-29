@@ -1,4 +1,5 @@
 var qrcode_write;
+var helloblock = new HelloBlock();
 
 var handShakeApp = angular.module('handShakeApp', ['ngRoute']);
 
@@ -55,21 +56,22 @@ handShakeApp.controller('page6Controller', function($scope, $rootScope, $http) {
 		var txFee = 10000;
         var txTargetValue = parseFloat($rootScope.amount) * 100000000;
 
-        $http.get('https://blockchain.info/unspent?active=' + $rootScope.publicColdStorageKey + '&cors=true')
-            .success(function(data, status, headers, config) {
+        helloblock.addresses.getUnspents($rootScope.publicColdStorageKey, {
+			value: txTargetValue + txFee
+		}, function(err, res, unspents) {
                 var txData = {
                     inputs: [],
                     outputs: []
                 };
 
                 var totalUnspentsValue = 0;
-                for (var i = 0 ; i < data.unspent_outputs.length ; i++) {
+                unspents.forEach(function(unspent) {
                     txData.inputs.push({
-                        tx_hash: data.unspent_outputs[i].tx_hash,
-                        tx_index: data.unspent_outputs[i].tx_index
+                        tx_hash: unspent.txHash,
+                        tx_index: unspent.index
                     })
-                    totalUnspentsValue += data.unspent_outputs[i].value;
-                }
+                    totalUnspentsValue += unspent.value;
+                });
 
                 txData.outputs.push({
                     hash: $rootScope.publicKey,
@@ -104,6 +106,12 @@ handShakeApp.controller('page8Controller', function($scope, $rootScope, $http) {
 
 	qrcode_write = new QRCode("qrcode_write");
 	qrcode_write.makeCode(tx.serializeHex());
+});
+
+handShakeApp.controller('page10Controller', function($scope, $rootScope, $http) {
+	helloblock.transactions.propagate($rootScope.signedTransactionData, function(err, res, tx) {
+    	debugger;
+	});
 });
 
 handShakeApp.config(function($routeProvider) {   
@@ -150,7 +158,7 @@ handShakeApp.config(function($routeProvider) {
 		})
 		.when('/page10', {
 			templateUrl: 'page10',
-			controller: 'mainController'
+			controller: 'page10Controller'
 		});
 });
 
